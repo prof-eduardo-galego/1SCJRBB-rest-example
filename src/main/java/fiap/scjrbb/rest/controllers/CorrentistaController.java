@@ -1,10 +1,13 @@
 package fiap.scjrbb.rest.controllers;
 
 import fiap.scjrbb.rest.models.Correntista;
-import org.springframework.http.HttpStatus;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,14 +25,17 @@ public class CorrentistaController {
 
     // [C]reate: Cria um novo recurso correntista.
     @PostMapping
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public void create(@RequestBody Correntista correntista) {
+    @Operation(summary = "Cadastra um novo correntista", description = "bla bla bla")
+    public ResponseEntity<Correntista> create(@Parameter(description = "Dados do Correntista") @RequestBody Correntista correntista) {
         DATABASE.add(correntista);
+        return ResponseEntity
+                .created(URI.create("/correntistas/" + correntista.getId()))
+                .body(correntista);
     }
 
     // [R]etrieve: Lista um ou mais correntistas.
     // GET http://localhost:8080/correntistas
-    @GetMapping
+    @GetMapping(produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public List<Correntista> getAll() {
         return DATABASE;
     }

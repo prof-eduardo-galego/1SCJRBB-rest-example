@@ -1,9 +1,16 @@
 package fiap.scjrbb.rest.models;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class Correntista {
 
+    @Schema(description = "Identificador do correntista", nullable = false, required = true)
     private String id;
+
+    @Schema(description = "Nome do correntista", nullable = false, required = true)
     private String nome;
+
+    @Schema(description = "Telefone do correntista", nullable = true, required = false)
     private String telefone;
 
     public Correntista() {
